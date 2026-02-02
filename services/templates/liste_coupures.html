@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block title %}Coupures Programmées - SENELEC{%endblock %} 
+{% block content %}
+<h2>Coupures Programmées ⚠️</h2>
+<p>Consultez les coupures d'électricité prévues dans votre zone</p>
+{% if coupures %} 
+{% for coupure in coupures %}
+<div
+  style="background: {% if coupure.type_coupure == 'PANNE' %}#ffebee{% else %}#fff3cd{% endif%};
+padding: 20px; margin: 15px 0; border-radius: 8px;
+border-left: 4px solid {% if coupure.type_coupure == 'PANNE' %}#f44336{% else %}#ff9800
+{%endif %};"
+>
+  <h3 style="margin-top: 0">📍{{ coupure.zone }}</h3>
+  <p><strong>📅Date :</strong> {{ coupure.date_coupure|date:"d/m/Y à H:i" }}</p>
+  <p><strong>⏱️Durée estimée :</strong> {{ coupure.duree_estimee }} minutes</p>
+  <p><strong>🔧Type :</strong> {{ coupure.get_type_coupure_display }}</p>
+  <p><strong>📝Raison :</strong> {{ coupure.raison }}</p>
+</div>
+{% endfor %} 
+{% else %}
+<p
+  style="
+    text-align: center;
+    color: #4caf50;
+    padding: 40px;
+    background: #e8f5e9;
+    border-radius: 8px;
+  "
+>
+  ✅ Aucune coupure programmée pour le moment
+</p>
+{% endif %} 
+{% endblock %}

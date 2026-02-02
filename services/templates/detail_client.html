@@ -1,0 +1,80 @@
+{% extends "base.html" %} 
+{% block title %}{{ client.nom_complet }} - SENELEC{%endblock %} 
+{% block content %}
+<h2>Détails Client</h2>
+<div
+  style="
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  "
+>
+  <h3>{{ client.nom_complet }}</h3>
+  <p><strong>📍 Adresse :</strong> {{ client.adresse }}</p>
+  <p><strong>📞 Téléphone :</strong> {{ client.telephone }}</p>
+  <p><strong>📧 Email :</strong> {{ client.email|default:"Non renseigné" }}</p>
+  <p><strong>🔢 N° Compteur :</strong> {{ client.numero_compteur }}</p>
+  <p><strong>📋 Type :</strong> {{ client.get_type_abonnement_display }}</p>
+</div>
+<h3>Factures ({{ factures.count }})</h3>
+{% if factures %}
+<table style="width: 100%; border-collapse: collapse">
+  <thead style="background: #0d47a1; color: white">
+    <tr>
+      <th style="padding: 12px; text-align: left">N° Facture</th>
+      <th style="padding: 12px; text-align: left">Période</th>
+      <th style="padding: 12px; text-align: right">Montant</th>
+      <th style="padding: 12px; text-align: center">Statut</th>
+      <th style="padding: 12px; text-align: left">Échéance</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for facture in factures %}
+    <tr style="border-bottom: 1px solid #ddd">
+      <td style="padding: 12px">{{ facture.numero_facture }}</td>
+      <td style="padding: 12px">{{ facture.periode }}</td>
+      <td style="padding: 12px; text-align: right; font-weight: bold">
+        {{ facture.montant }} FCFA
+      </td>
+      <td style="padding: 12px; text-align: center">
+        {% if facture.statut == 'PAYEE' %}
+
+        <span
+          style="background: #4caf50; color: white; padding: 4px 12px; border-radius: 12px; font-
+size: 0.9em;"
+        >
+          Payée
+        </span>
+        {% elif facture.statut == 'IMPAYEE' %}
+
+        <span
+          style="background: #f44336; color: white; padding: 4px 12px; border-radius: 12px; font-
+size: 0.9em;"
+        >
+          Impayée
+        </span>
+        {% else %}
+
+        <span
+          style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 12px; font-
+size: 0.9em;"
+        >
+          Partielle
+        </span>
+        {% endif %}
+      </td>
+      <td style="padding: 12px">{{ facture.date_echeance }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p style="color: #999; text-align: center; padding: 20px">
+  Aucune facture pour ce client
+</p>
+{% endif %}
+<p style="margin-top: 20px">
+  <a href="{% url 'liste_clients' %}" style="color: #0d47a1">← Retour à la liste</a>
+</p>
+{% endblock %}

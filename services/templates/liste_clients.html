@@ -1,0 +1,43 @@
+{% extends "base.html" %} 
+{% block title %}Clients - SENELEC{% endblock %} 
+{% block content %}
+<h2>Liste des Clients SENELEC</h2>
+<p>Total : <strong>{{ total }}</strong> clients actifs</p>
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px">
+  <thead style="background: #0d47a1; color: white">
+    <tr>
+      <th style="padding: 12px; text-align: left">Nom</th>
+      <th style="padding: 12px; text-align: left">N° Compteur</th>
+      <th style="padding: 12px; text-align: left">Téléphone</th>
+      <th style="padding: 12px; text-align: left">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for client in clients %}
+    <tr style="border-bottom: 1px solid #ddd">
+    <td style="padding: 12px;">
+        <a href="{% url 'detail_client' client.id %}" style="color: #0d47a1; text-decoration: none;">
+            {{ client.nom_complet }}
+        </a>
+    </td>
+      <td style="padding: 12px">{{ client.numero_compteur }}</td>
+      <td style="padding: 12px">{{ client.telephone }}</td>
+      <td style="padding: 12px">
+        <span
+          style="background: #4caf50; color: white; padding: 4px 12px; border-radius: 12px; font-
+size: 0.9em;"
+        >
+          {{ client.get_type_abonnement_display }}
+        </span>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4" style="padding: 20px; text-align: center; color: #999">
+        Aucun client enregistré
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

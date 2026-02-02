@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SENELEC{% endblock %}</title>
+    <style>
+        /* Mise en page générale */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            background: #f0f0f0; 
+        }
+        
+        /* En-tête bleu SENELEC */
+        header { 
+            background: #0d47a1; 
+            color: white; 
+            padding: 20px; 
+            text-align: center;
+        }
+        
+        /* Menu de navigation */
+        nav { 
+            background: #1565c0; 
+            padding: 10px; 
+            text-align: center;
+        }
+        nav a { 
+            color: white; 
+            margin: 0 15px; 
+            text-decoration: none; 
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #ffd700;
+        }
+        
+        /* Zone de contenu */
+        .container { 
+            max-width: 1000px; 
+            margin: 20px auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Pied de page */
+        footer { 
+            background: #0d47a1; 
+            color: white; 
+            text-align: center; 
+            padding: 15px; 
+            margin-top: 30px; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>⚡ SENELEC</h1>
+        <p>Société Nationale d'Électricité du Sénégal</p>
+    </header>
+    
+    <nav>
+        <a href="{% url 'accueil' %}">Accueil</a>
+        <a href="{% url 'services' %}">Services</a>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'zones' %}">Zones</a>
+        <a href="{% url 'liste_clients' %}">Clients</a>
+        <a href="{% url 'coupures' %}">Coupures</a>
+    </nav>
+    
+    <div class="container">
+        {% block content %}
+        <!-- Le contenu des pages enfants sera inséré ici -->
+        {% endblock %}
+    </div>
+    
+    <footer>
+        © 2026 SENELEC - Tous droits réservés
+    </footer>
+</body>
+</html>

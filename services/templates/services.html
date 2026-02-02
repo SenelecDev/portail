@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Nos Services - SENELEC{% endblock %}
+
+{% block content %}
+<h2>Nos Services Énergétiques</h2>
+<p>La SENELEC vous propose une gamme complète de services :</p>
+
+{% for service in services %}
+    <div style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px;">
+        <h3>{{ service.icon }} {{ service.nom }}</h3>
+    </div>
+{% endfor %}
+{% endblock %}
