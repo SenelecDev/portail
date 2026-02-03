@@ -51,9 +51,13 @@ def detail_client(request, client_id):
     client = get_object_or_404(Client, id=client_id)
     # Récupérer toutes les factures du client
     factures = client.factures.all()
+    
+    # Récupérer toutes les reclamations du client
+    reclamations = client.reclamations.all()
     context = {
     'client': client,
     'factures': factures,
+    'reclamations': reclamations,
     }
     return render(request, "detail_client.html", context)
 

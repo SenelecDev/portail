@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Client, Facture, Coupure
+from .models import Client, Facture, Coupure, Reclamation
 
 @admin.register(Client)
 
@@ -52,3 +52,26 @@ class CoupureAdmin(admin.ModelAdmin):
     search_fields = ('zone', 'raison')
     list_editable = ('terminee',)
     date_hierarchy = 'date_coupure'
+    
+@admin.register(Reclamation)
+class ReclamationAdmin(admin.ModelAdmin):
+    list_display = ('sujet', 'client', 'date_creation', 'statut')
+    list_filter = ('statut', 'date_creation')
+    search_fields = ('sujet', 'client__nom_complet')
+    list_editable = ('statut',)
+    date_hierarchy = 'date_creation'
+    
+    # Organisation des champs dans le formulaire
+    fieldsets = (
+        ('Informations Client', {
+        'fields': ('client',)
+        }),
+        
+        ('Détails Reclamation', {
+        'fields': ('sujet', 'description')
+        }),
+        
+        ('Statut', {
+        'fields': ('statut',)
+        }),
+    )

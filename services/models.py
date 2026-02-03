@@ -100,3 +100,24 @@ class Coupure(models.Model):
         
     def __str__(self):
         return f"Coupure {self.zone} - {self.date_coupure.strftime('%d/%m/%Y')}"
+    
+
+class Reclamation(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='reclamations')
+    sujet = models.CharField(max_length=200)
+    description = models.TextField()
+    date_creation = models.DateTimeField(auto_now_add=True)
+    statut = models.CharField(
+    max_length=20,
+    choices=[
+
+    ('OUVERTE', 'Ouverte'),
+    ('EN_COURS', 'En cours de traitement'),
+    ('RESOLUE', 'Résolue'),
+    ],
+    default='OUVERTE'
+    )
+    class Meta:
+        ordering = ['-date_creation']
+    def __str__(self):
+        return f"{self.sujet} - {self.client.nom_complet}"
