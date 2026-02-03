@@ -1,5 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Client, Coupure, Facture
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+
+def est_admin(user):
+    """Vérifie si l'utilisateur est dans le groupe ADMIN"""
+    return user.groups.filter(name='ADMIN').exists()
+
+
+def est_user_ou_admin(user):
+    """Vérifie si l'utilisateur est dans USER ou ADMIN"""
+    return user.groups.filter(name__in=['ADMIN', 'USER']).exists()
 
 # Vue pour la page d'accueil
 def accueil(request):
@@ -35,6 +46,8 @@ def zones(request):
        ]
     return render(request, "zones.html", {"zones": zones_list})
 
+@login_required
+@user_passes_test(est_user_ou_admin)
 def liste_clients(request):
     # Récupérer tous les clients actifs
     clients = Client.objects.filter(actif=True)
@@ -45,6 +58,8 @@ def liste_clients(request):
     }
     return render(request, "liste_clients.html", context)
 
+@login_required
+@user_passes_test(est_user_ou_admin)
 def detail_client(request, client_id):
     
     # Récupérer le client ou erreur 404
@@ -58,7 +73,10 @@ def detail_client(request, client_id):
     'client': client,
     'factures': factures,
     'reclamations': reclamations,
+    'is_admin': est_admin(request.user),
     }
+    
+    
     return render(request, "detail_client.html", context)
 
 def liste_coupures(request):

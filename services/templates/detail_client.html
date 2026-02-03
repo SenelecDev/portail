@@ -36,6 +36,7 @@
   <p><strong>🔢 N° Compteur :</strong> {{ client.numero_compteur }}</p>
   <p><strong>📋 Type :</strong> {{ client.get_type_abonnement_display }}</p>
 </div>
+{% if is_admin %}
 <h3>Factures ({{ factures.count }})</h3>
 {% if factures %}
 <table style="width: 100%; border-collapse: collapse">
@@ -120,6 +121,7 @@ class="{{ reclamation.statut }}">
   ✅ Aucune coupure programmée pour le moment
 </p>
 {% endif %} 
+{% endif %}
 
 
 
