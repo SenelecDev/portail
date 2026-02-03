@@ -61,14 +61,27 @@
         <p>Société Nationale d'Électricité du Sénégal</p>
     </header>
     
-    <nav>
-        <a href="{% url 'accueil' %}">Accueil</a>
-        <a href="{% url 'services' %}">Services</a>
-        <a href="{% url 'contact' %}">Contact</a>
-        <a href="{% url 'zones' %}">Zones</a>
-        <a href="{% url 'liste_clients' %}">Clients</a>
-        <a href="{% url 'coupures' %}">Coupures</a>
-    </nav>
+<nav>
+    <a href="{% url 'accueil' %}">Accueil</a>
+    <a href="{% url 'services' %}">Services</a>
+    <a href="{% url 'liste_clients' %}">Clients</a>
+    <a href="{% url 'coupures' %}">Coupures</a>
+    <a href="{% url 'contact' %}">Contact</a>
+    
+    {% if user.is_authenticated %}
+        <span style="float: right;">
+            👤 {{ user.username }} | 
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" style="background: none; border: none; color: white; cursor: pointer; text-decoration: underline; font-size: inherit; font-family: inherit;">
+                    Déconnexion
+                </button>
+            </form>
+        </span>
+    {% else %}
+        <a href="{% url 'login' %}" style="float: right;">🔐 Connexion Agent</a>
+    {% endif %}
+</nav>
     
     <div class="container">
         {% block content %}
