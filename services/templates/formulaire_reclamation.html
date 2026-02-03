@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block title %}Soumettre une réclamation - SENELEC{% endblock %}
+
+
+{% block content %}
+<div style="max-width: 600px; margin: 40px auto;">
+    <h2 style="color: #0d47a1;">📝 Soumettre une réclamation</h2>
+    <p style="color: #666; margin-bottom: 30px;">
+        Remplissez ce formulaire pour nous faire part de votre réclamation. 
+        Notre équipe vous contactera dans les plus brefs délais.
+    </p>
+
+
+    <form method="post" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">
+                {{ field.label }}
+            </label>
+            {{ field }}
+            
+            {% if field.errors %}
+            <div style="color: #f44336; font-size: 14px; margin-top: 5px;">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <button type="submit" style="width: 100%; background: #0d47a1; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+            Envoyer la réclamation
+        </button>
+    </form>
+</div>
+{% endblock %}

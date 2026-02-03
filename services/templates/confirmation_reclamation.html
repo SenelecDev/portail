@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block title %}Réclamation envoyée - SENELEC{% endblock %}
+
+
+{% block content %}
+<div style="max-width: 600px; margin: 100px auto; text-align: center;">
+    <div style="background: #e8f5e9; padding: 40px; border-radius: 10px; border: 2px solid #4caf50;">
+        <div style="font-size: 4em; margin-bottom: 20px;">✅</div>
+        <h2 style="color: #2e7d32;">Réclamation envoyée avec succès !</h2>
+        <p style="color: #666; margin: 20px 0;">
+            Votre réclamation a bien été enregistrée. Notre équipe SENELEC 
+            vous contactera dans les 48 heures.
+        </p>
+        <p style="margin-top: 30px;">
+            <a href="{% url 'accueil' %}" style="background: #0d47a1; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                Retour à l'accueil
+            </a>
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,4 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+
+from services.form import ReclamationForm
 from .models import Client, Coupure, Facture
 from django.contrib.auth.decorators import login_required, user_passes_test
 
@@ -86,3 +88,22 @@ def liste_coupures(request):
     'coupures': coupures_futures,
     }
     return render(request, "liste_coupures.html", context)
+
+
+def soumettre_reclamation(request):
+    if request.method == 'POST':
+        form = ReclamationForm(request.POST)
+        if form.is_valid():
+            reclamation = form.save()  # Enregistre en base de données
+            return redirect('confirmation_reclamation')
+    else:
+        form = ReclamationForm()
+    
+    context = {
+        'form': form,
+    }
+    return render(request, "formulaire_reclamation.html", context)
+
+
+def confirmation_reclamation(request):
+    return render(request, "confirmation_reclamation.html")

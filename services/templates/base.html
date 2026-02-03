@@ -68,6 +68,7 @@
         <a href="{% url 'liste_clients' %}">Clients</a>
     {% endif %}
     <a href="{% url 'coupures' %}">Coupures</a>
+    <a href="{% url 'soumettre_reclamation' %}">📝 Réclamation</a>
     <a href="{% url 'contact' %}">Contact</a>
     
     {% if user.is_authenticated %}
