@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
-from services.form import ReclamationForm
+from services.forms import ReclamationForm
 from .models import Client, Coupure, Facture
 from django.contrib.auth.decorators import login_required, user_passes_test
 
@@ -92,7 +92,7 @@ def liste_coupures(request):
 
 def soumettre_reclamation(request):
     if request.method == 'POST':
-        form = ReclamationForm(request.POST)
+        form = ReclamationForm(request.POST, request.FILES)
         if form.is_valid():
             reclamation = form.save()  # Enregistre en base de données
             return redirect('confirmation_reclamation')

@@ -121,3 +121,10 @@ STATIC_URL = 'static/'
 LOGIN_REDIRECT_URL = '/'  # Redirection après connexion réussie
 LOGOUT_REDIRECT_URL = '/'  # Redirection après déconnexion
 LOGIN_URL = '/login/'  # Page de connexion
+
+
+import os
+
+# Dossier pour stocker les fichiers uploadés
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

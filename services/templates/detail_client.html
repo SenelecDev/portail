@@ -105,6 +105,18 @@ class="{{ reclamation.statut }}">
   <h3 style="margin-top: 0">📍{{ reclamation.sujet }}</h3>
   <p><strong>📅Date :</strong> {{ reclamation.date_creation|date:"d/m/Y à H:i" }}</p>
   <p><strong>📝Description :</strong> {{ reclamation.description }}</p>
+  
+    <!-- Ajouter l'affichage de la pièce jointe -->
+  {% if reclamation.piece_jointe %}
+  <p style="margin: 10px 0;">
+      <strong>📎 Pièce jointe :</strong> 
+      <a href="{{ reclamation.piece_jointe.url }}" target="_blank" style="color: #0d47a1;">
+          Télécharger le fichier
+      </a>
+  </p>
+  {% endif %}
+
+
   <p><strong>🔧Statut :</strong> {{ reclamation.statut }}</p>
 </div>
 {% endfor %} 

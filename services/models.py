@@ -117,6 +117,11 @@ class Reclamation(models.Model):
     ],
     default='OUVERTE'
     )
+    
+    # Nouveau champ pour l'upload
+    piece_jointe = models.FileField(upload_to='reclamations/', blank=True, null=True)
+
+
     class Meta:
         ordering = ['-date_creation']
     def __str__(self):
